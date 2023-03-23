@@ -11,8 +11,8 @@ final class VideoView: BaseView {
     
     //MARK: - UI
     
-    private let flowlayout: UICollectionViewFlowLayout = {
-        let flow = UICollectionViewFlowLayout()
+    private let flowlayout: SnappingFlowLayout = {
+        let flow = SnappingFlowLayout()
         flow.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         flow.scrollDirection = .vertical
         flow.minimumLineSpacing = 0
@@ -21,12 +21,13 @@ final class VideoView: BaseView {
     }()
     
     lazy var collectionView: UICollectionView = {
-        let collection = UICollectionView(frame: .zero,
-                                          collectionViewLayout: flowlayout)
+        let collection = UICollectionView(frame: .zero, collectionViewLayout: flowlayout)
         collection.showsVerticalScrollIndicator = false
         collection.showsHorizontalScrollIndicator = false
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.alwaysBounceVertical = true
+        collection.decelerationRate = .fast
+        collection.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         return collection
     }()
     

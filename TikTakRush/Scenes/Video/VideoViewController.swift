@@ -59,8 +59,6 @@ private extension VideoViewController {
         baseView.collectionView.delegate = self
         baseView.collectionView.dataSource = self
         baseView.collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        baseView.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        baseView.collectionView.collectionViewLayout = stackLayout
     }
     
     func getBackgroundVideo(from item: VideoModel, _ cell: VideoCollectionViewCell) {
