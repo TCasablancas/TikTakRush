@@ -25,7 +25,6 @@ final class CounterButton: BaseView {
     
     private lazy var iconButton = UIButton() {
         $0.setBackgroundImage(UIImage(named: imageIcon), for: .normal)
-        $0.addTarget(self, action: #selector(tapIncrease), for: .touchUpInside)
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -61,8 +60,10 @@ final class CounterButton: BaseView {
         
         if isLike {
             mainStack.addArrangedSubviews(views: [container, counterLabel])
+            iconButton.addTarget(self, action: #selector(tapIncrease), for: .touchUpInside)
         } else {
             mainStack.addArrangedSubviews(views: [counterLabel, container])
+            iconButton.addTarget(self, action: #selector(tapIncrease), for: .touchUpInside)
         }
     }
     
@@ -78,6 +79,15 @@ final class CounterButton: BaseView {
     
     @objc
     func tapIncrease() {
+        sumAction()
+    }
+    
+    @objc
+    func tapIncreaseFire() {
+        sumAction()
+    }
+    
+    private func sumAction() {
         guard let presentValue = Int(counterLabel.text!) else {
             return
         }

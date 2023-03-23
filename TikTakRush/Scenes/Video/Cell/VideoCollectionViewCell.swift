@@ -13,14 +13,11 @@ class VideoCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDelegate
     
     //MARK: - Properties
     
+    var swipeAction: (() -> Void)?
     private var video: VideoModel?
     private var pan: UIPanGestureRecognizer!
     
     //MARK: - UI
-    
-    private let mainContainer = UIView() {
-        $0.translatesAutoresizingMaskIntoConstraints = false
-    }
     
     var playerView = PlayerView() {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -73,6 +70,7 @@ extension VideoCollectionViewCell {
 }
 
 extension VideoCollectionViewCell {
+    
     func setupPanGesture() {
         pan = UIPanGestureRecognizer(target: self, action: #selector(onPan(_:)))
         pan.delegate = self
@@ -118,19 +116,32 @@ extension VideoCollectionViewCell {
     }
     
     func onPanRegister() {
-        if abs(pan.velocity(in: self).x) > 1000 {
-            let collectionView: UICollectionView = self.superview as! UICollectionView
-            let indexPath: IndexPath = collectionView.indexPathForItem(at: self.center)!
-            collectionView.delegate?.collectionView!(collectionView,
-                                                     performAction: #selector(onPan(_:)),
-                                                     forItemAt: indexPath,
-                                                     withSender: nil)
-        } else {
-            UIView.animate(withDuration: 0.2, animations: {
-                self.setNeedsLayout()
-                self.layoutIfNeeded()
-            })
-        }
+        let swipeRecognizer = UISwipeGestureRecognizer(target: self,
+                                                       action: #selector(swipeDetected))
+        self.addGestureRecognizer(swipeRecognizer)
+        
+        UIView.animate(withDuration: 0.2, animations: { [weak self] in
+            guard let self = self else {
+                return
+            }
+            
+            if abs(self.pan.translation(in: self).x) > 120 {
+                switch swipeRecognizer.direction {
+                case .left:
+                    self.fireButton.tapIncrease()
+                case .right:
+                    self.likeButton.tapIncrease()
+                case .up, .down:
+                    break
+                default:
+                    break
+                }
+            }
+            
+            self.contentView.isHidden = true
+            self.setNeedsLayout()
+            self.layoutIfNeeded()
+        })
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
@@ -140,6 +151,9 @@ extension VideoCollectionViewCell {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return abs((pan.velocity(in: pan.view)).x) > abs((pan.velocity(in: pan.view)).y)
     }
+    
+    @objc
+    func swipeDetected() { }
 }
 
 //MARK: - Setup View
@@ -155,6 +169,7 @@ extension VideoCollectionViewCell {
         addSubview(fireSwipe)
         addSubview(playerView)
         sendSubviewToBack(playerView)
+        bringSubviewToFront(topInfoView)
         bringSubviewToFront(likeButton)
         bringSubviewToFront(fireButton)
         

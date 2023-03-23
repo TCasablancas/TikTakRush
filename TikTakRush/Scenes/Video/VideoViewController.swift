@@ -89,10 +89,16 @@ private extension VideoViewController {
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             let playerItem = AVPlayerItem(url: url)
-            audioPlayer = AVQueuePlayer(items: [playerItem])
-            audioLooper = AVPlayerLooper(player: audioPlayer! as! AVQueuePlayer,
-                                         templateItem: playerItem)
-            audioPlayer?.play()
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                
+                self.audioPlayer = AVQueuePlayer(items: [playerItem])
+                self.audioLooper = AVPlayerLooper(player: self.audioPlayer! as! AVQueuePlayer,
+                                             templateItem: playerItem)
+                self.audioPlayer?.play()
+            }
         } catch {
             debugPrint("an error was encoutered while trying to pick up song: \(error)")
         }
@@ -116,6 +122,10 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         getAudioPlayer(from: item)
         cell.configureWith(with: item)
         cell.setAutoresizingMaskIntoConstraintsForAllSubviews()
+        
+        cell.swipeAction = {
+            
+        }
         
         return cell
     }
