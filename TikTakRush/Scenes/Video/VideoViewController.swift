@@ -43,7 +43,6 @@ final class VideoViewController: BaseViewController<VideoView> {
         setupCollectioView()
         viewModel.delegate = self
         viewModel.fetchDataFromJSON()
-        setuSwipeFire()
     }
 }
 
@@ -97,23 +96,6 @@ private extension VideoViewController {
         } catch {
             debugPrint("an error was encoutered while trying to pick up song: \(error)")
         }
-    }
-    
-    func setuSwipeFire() {
-        var config = UICollectionLayoutListConfiguration(appearance: .plain)
-        
-        config.trailingSwipeActionsConfigurationProvider = { indexPath in
-            let fire = UIContextualAction(style: .destructive, title: "Fire") { [weak self] action, view, completion in
-                print("@! >>> Mais 1 fire")
-                completion(true)
-            }
-            
-            return UISwipeActionsConfiguration(actions: [fire])
-        }
-    }
-    
-    func delete(at: IndexPath) {
-        
     }
 }
 
