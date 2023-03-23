@@ -34,7 +34,7 @@ final class TopInfo: BaseView {
     
     override func installConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
+            titleLabel.widthAnchor.constraint(equalTo: widthAnchor),
             userView.widthAnchor.constraint(equalTo: widthAnchor)
         ])
     }
