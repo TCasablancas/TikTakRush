@@ -28,11 +28,13 @@ final class UserDisplay: BaseView {
     
     private let userNameLabel = UILabel() {
         $0.text = "Thyago Casablancas"
+        $0.font = UIFont.init(name: "Nunito-SemiBold", size: 13)
         $0.numberOfLines = .zero
     }
     
     private let followersLabel = UILabel() {
         $0.text = "1.280"
+        $0.font = UIFont.init(name: "Nunito-Light", size: 12)
         $0.numberOfLines = .zero
     }
     
@@ -51,7 +53,7 @@ final class UserDisplay: BaseView {
         NSLayoutConstraint.activate([
             mainStack.widthAnchor.constraint(equalTo: widthAnchor),
             
-            userPicView.widthAnchor.constraint(equalToConstant: 40)
+            userPicView.widthAnchor.constraint(equalToConstant: 35)
         ])
     }
 }
