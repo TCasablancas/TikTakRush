@@ -11,7 +11,7 @@ final class VideoView: BaseView {
     
     //MARK: - UI
     
-    private let userView = UserDisplay {
+    private let topInfoView = TopInfo {
         $0.setAutoresizingMaskIntoConstraintsForAllSubviews()
     }
     
@@ -21,14 +21,13 @@ final class VideoView: BaseView {
         backgroundColor = .white
         clipsToBounds = false
         
-        addSubview(userView)
+        addSubview(topInfoView)
     }
     
     override func installConstraints() {
         NSLayoutConstraint.activate([
-            userView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 16),
-            userView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            userView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            topInfoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            topInfoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
     }
     
