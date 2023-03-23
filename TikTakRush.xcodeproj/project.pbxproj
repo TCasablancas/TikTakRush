@@ -21,6 +21,8 @@
 		EF9AD62829CBD69400FAE964 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD62729CBD69400FAE964 /* BaseView.swift */; };
 		EF9AD62A29CBD79800FAE964 /* VideoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD62929CBD79700FAE964 /* VideoView.swift */; };
 		EF9AD62D29CBD9CA00FAE964 /* UserDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD62C29CBD9CA00FAE964 /* UserDisplay.swift */; };
+		EF9AD63029CBDBB300FAE964 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD62F29CBDBB300FAE964 /* UIView+Extension.swift */; };
+		EF9AD63229CBDDD300FAE964 /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD63129CBDDD300FAE964 /* UIStackView+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		EF9AD62729CBD69400FAE964 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		EF9AD62929CBD79700FAE964 /* VideoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoView.swift; sourceTree = "<group>"; };
 		EF9AD62C29CBD9CA00FAE964 /* UserDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDisplay.swift; sourceTree = "<group>"; };
+		EF9AD62F29CBDBB300FAE964 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		EF9AD63129CBDDD300FAE964 /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				EF9AD62B29CBD8BD00FAE964 /* UI */,
+				EF9AD62E29CBDBA100FAE964 /* Extensions */,
 				EF9AD62429CBD5D300FAE964 /* Reusable */,
 				EF9AD5EF29CBD26900FAE964 /* AppDelegate.swift */,
 				EF9AD5F129CBD26900FAE964 /* SceneDelegate.swift */,
@@ -180,6 +185,15 @@
 				EF9AD62C29CBD9CA00FAE964 /* UserDisplay.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		EF9AD62E29CBDBA100FAE964 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				EF9AD62F29CBDBB300FAE964 /* UIView+Extension.swift */,
+				EF9AD63129CBDDD300FAE964 /* UIStackView+Extension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,6 +330,8 @@
 				EF9AD62629CBD5EA00FAE964 /* BaseViewController.swift in Sources */,
 				EF9AD62D29CBD9CA00FAE964 /* UserDisplay.swift in Sources */,
 				EF9AD62A29CBD79800FAE964 /* VideoView.swift in Sources */,
+				EF9AD63229CBDDD300FAE964 /* UIStackView+Extension.swift in Sources */,
+				EF9AD63029CBDBB300FAE964 /* UIView+Extension.swift in Sources */,
 				EF9AD5F429CBD26900FAE964 /* ViewController.swift in Sources */,
 				EF9AD5F029CBD26900FAE964 /* AppDelegate.swift in Sources */,
 				EF9AD62829CBD69400FAE964 /* BaseView.swift in Sources */,

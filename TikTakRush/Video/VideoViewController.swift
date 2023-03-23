@@ -18,5 +18,6 @@ final class VideoViewController: BaseViewController<VideoView> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        baseView.setAutoresizingMaskIntoConstraintsForAllSubviews()
     }
 }
