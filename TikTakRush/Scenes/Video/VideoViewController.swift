@@ -77,20 +77,19 @@ private extension VideoViewController {
         videoPlayer?.play()
     }
     
-    private func setupAudioContent(from item: VideoModel, _ cell: VideoCollectionViewCell) {
-
+    func setupAudioPlayer(from item: VideoModel) {
+        
         guard let url = URL(string: item.song) else {
             return
         }
         
-        audioPlayer = AVPlayer(url: url)
-
-        let playerLayer = AVPlayerLayer(player: audioPlayer)
-        cell.playerView.layer.addSublayer(playerLayer)
-//            playerLayer.frame = self.frame
-
-        audioPlayer?.play()
-        audioPlayer?.volume = 1.0
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            videoPlayer = AVPlayer(url: url)
+            videoPlayer?.play()
+        } catch {
+            debugPrint("an error was encoutered while trying to pick up song: \(error)")
+        }
     }
 }
 
@@ -108,7 +107,7 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let item = videos[indexPath.row]
         
         getBackgroundVideo(from: item, cell)
-        setupAudioContent(from: item, cell)
+        setupAudioPlayer(from: item)
         cell.configureWith(with: item)
         cell.setAutoresizingMaskIntoConstraintsForAllSubviews()
         
