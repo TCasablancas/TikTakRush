@@ -7,22 +7,27 @@
 
 import Foundation
 
-struct Service {
-    
-    func parseFromJSON() {
+protocol ServiceProtocol {
+    func parseFromJSON(completion: @escaping ((Response<LooksModel>) -> Void))
+}
 
-        if let path = Bundle.main.path(forResource: "MockData", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path))
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                
-                if let result = jsonResult as? Dictionary<String, Any>,
-                   let item = result["looks"] as? [Any] {
-                    print(item)
-                }
-            } catch {
-                
-            }
+struct Service: ServiceProtocol {
+    
+    func parseFromJSON(completion: @escaping ((Response<LooksModel>) -> Void)) {
+        
+        let decoder = JSONDecoder()
+        
+        guard let path = Bundle.main.path(forResource: "MockData", ofType: "json") else {
+            return
+        }
+        
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: path))
+            let result = try decoder.decode(LooksModel.self, from: data)
+            
+            completion(.success(model: result))
+        } catch {
+            print("error: \(error)")
         }
     }
 }

@@ -21,6 +21,18 @@ final class VideoViewModel: VideoViewModelProtocol {
     }
     
     func fetchDataFromJSON() {
-        service.parseFromJSON()
+        service.parseFromJSON { (result) in
+            switch result {
+            case .success(let model):
+                print(model.looks.map({ $0.title }))
+            case .serverError(let error):
+                let errorData = "\(error.statusCode), -, \(error.msgError)"
+                print("Server error: \(errorData) \n")
+            case .timeOut(let description):
+                print("Server error noConnection: \(description) \n")
+            case .noConnection(let description):
+                print("Server error timeOut: \(description) \n")
+            }
+        }
     }
 }

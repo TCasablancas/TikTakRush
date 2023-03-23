@@ -32,6 +32,9 @@
 		EF9AD64529CBFD1600FAE964 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64429CBFD1600FAE964 /* VideoViewModel.swift */; };
 		EF9AD64729CBFD3200FAE964 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64629CBFD3200FAE964 /* VideoModel.swift */; };
 		EF9AD64929CBFDAD00FAE964 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64829CBFDAD00FAE964 /* Service.swift */; };
+		EF9AD64B29CC00C000FAE964 /* LooksModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64A29CC00C000FAE964 /* LooksModel.swift */; };
+		EF9AD64D29CC062700FAE964 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64C29CC062700FAE964 /* Response.swift */; };
+		EF9AD64F29CC064E00FAE964 /* ServerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64E29CC064E00FAE964 /* ServerError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +84,9 @@
 		EF9AD64429CBFD1600FAE964 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
 		EF9AD64629CBFD3200FAE964 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
 		EF9AD64829CBFDAD00FAE964 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		EF9AD64A29CC00C000FAE964 /* LooksModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LooksModel.swift; sourceTree = "<group>"; };
+		EF9AD64C29CC062700FAE964 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		EF9AD64E29CC064E00FAE964 /* ServerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +175,9 @@
 				EF9AD5F529CBD26900FAE964 /* Main.storyboard */,
 				EF9AD5FA29CBD26B00FAE964 /* LaunchScreen.storyboard */,
 				EF9AD64829CBFDAD00FAE964 /* Service.swift */,
+				EF9AD64A29CC00C000FAE964 /* LooksModel.swift */,
+				EF9AD64C29CC062700FAE964 /* Response.swift */,
+				EF9AD64E29CC064E00FAE964 /* ServerError.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -369,7 +378,9 @@
 				EF9AD62629CBD5EA00FAE964 /* BaseViewController.swift in Sources */,
 				EF9AD63B29CBE41D00FAE964 /* TopInfo.swift in Sources */,
 				EF9AD64929CBFDAD00FAE964 /* Service.swift in Sources */,
+				EF9AD64D29CC062700FAE964 /* Response.swift in Sources */,
 				EF9AD62D29CBD9CA00FAE964 /* UserDisplay.swift in Sources */,
+				EF9AD64B29CC00C000FAE964 /* LooksModel.swift in Sources */,
 				EF9AD64729CBFD3200FAE964 /* VideoModel.swift in Sources */,
 				EF9AD62A29CBD79800FAE964 /* VideoView.swift in Sources */,
 				EF9AD63229CBDDD300FAE964 /* UIStackView+Extension.swift in Sources */,
@@ -381,6 +392,7 @@
 				EF9AD5F229CBD26900FAE964 /* SceneDelegate.swift in Sources */,
 				EF9AD63F29CBF23C00FAE964 /* CounterButton.swift in Sources */,
 				EF9AD62329CBD55900FAE964 /* VideoViewController.swift in Sources */,
+				EF9AD64F29CC064E00FAE964 /* ServerError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
