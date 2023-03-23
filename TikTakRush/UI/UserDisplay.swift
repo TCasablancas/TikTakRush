@@ -24,7 +24,6 @@ final class UserDisplay: BaseView {
     }
     
     private let userNameLabel = UILabel() {
-        $0.text = "@tcasablancas"
         $0.font = UIFont.init(name: "Nunito-SemiBold", size: 13)
         $0.numberOfLines = .zero
     }
@@ -41,7 +40,7 @@ final class UserDisplay: BaseView {
     }
     
     // MARK: - Initialize
-        
+    
     override func initialize() {
         backgroundColor = .white
         clipsToBounds = false
@@ -55,9 +54,22 @@ final class UserDisplay: BaseView {
     override func installConstraints() {
         NSLayoutConstraint.activate([
             mainStack.widthAnchor.constraint(equalTo: widthAnchor),
+            
             userPicView.widthAnchor.constraint(equalToConstant: 38),
+            userPicView.heightAnchor.constraint(equalToConstant: 38),
+            
             followerIcon.widthAnchor.constraint(equalToConstant: 20),
             followerIcon.heightAnchor.constraint(equalToConstant: 20)
         ])
+    }
+    
+    func setupUserView(userImage: String, username: String) {
+        guard let url = URL(string: userImage) else { return }
+        
+        UIImage.loadFrom(url: url) { image in
+            self.userPicView.image = image
+        }
+        
+        userNameLabel.text = username
     }
 }

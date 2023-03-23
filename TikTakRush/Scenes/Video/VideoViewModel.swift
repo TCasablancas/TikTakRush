@@ -8,12 +8,13 @@
 import Foundation
 import UIKit
 
-protocol VideoViewModelProtocol {
-    func fetchDataFromJSON()
+protocol VideoViewModelDelegate: AnyObject {
+    func setupVideoData(videoArr: [VideoModel])
 }
 
-final class VideoViewModel: VideoViewModelProtocol {
+final class VideoViewModel {
     
+    weak var delegate: VideoViewModelDelegate?
     private var service: Service
     
     init(service: Service) {
@@ -21,10 +22,11 @@ final class VideoViewModel: VideoViewModelProtocol {
     }
     
     func fetchDataFromJSON() {
-        service.parseFromJSON { (result) in
+        service.parseFromJSON { [weak self] (result) in
             switch result {
             case .success(let model):
-                print(model.looks.map({ $0.title }))
+                self?.delegate?.setupVideoData(videoArr: model.looks)
+//                print(model.looks.map({ $0.title }))
             case .serverError(let error):
                 let errorData = "\(error.statusCode), -, \(error.msgError)"
                 print("Server error: \(errorData) \n")

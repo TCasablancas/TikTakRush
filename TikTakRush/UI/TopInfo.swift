@@ -13,12 +13,12 @@ final class TopInfo: BaseView {
     
     private let mainStack = UIStackView(axis: .vertical, spacing: 10)
     
-    private let titleLabel = UILabel() {
-        $0.text = "Texto Aleatório do Vídeo"
+    var titleLabel = UILabel() {
         $0.font = UIFont.init(name: "Nunito-SemiBold", size: 20)
+        $0.numberOfLines = 2
     }
     
-    private let userView = UserDisplay {
+    let userView = UserDisplay {
         $0.setAutoresizingMaskIntoConstraintsForAllSubviews()
     }
     
