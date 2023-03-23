@@ -11,6 +11,8 @@ final class VideoView: BaseView {
     
     //MARK: - UI
     
+    private let containerView = UIView()
+    
     private let topInfoView = TopInfo {
         $0.setAutoresizingMaskIntoConstraintsForAllSubviews()
     }
@@ -21,13 +23,12 @@ final class VideoView: BaseView {
         backgroundColor = .white
         clipsToBounds = false
         
-        addSubview(topInfoView)
+        embed(subview: containerView, padding: .init(top: 20, left: 20, bottom: 20, right: 20))
+        containerView.embed(subview: topInfoView)
     }
     
     override func installConstraints() {
         NSLayoutConstraint.activate([
-            topInfoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            topInfoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
         ])
     }
     
