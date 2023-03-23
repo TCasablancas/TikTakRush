@@ -38,6 +38,7 @@
 		EF9AD65329CC103400FAE964 /* MediaCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD65229CC103400FAE964 /* MediaCache.swift */; };
 		EF9AD65629CC147B00FAE964 /* VideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD65529CC147B00FAE964 /* VideoCollectionViewCell.swift */; };
 		EFF784E429CC8F2000AC8004 /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF784E329CC8F2000AC8004 /* UIImage+Extension.swift */; };
+		EFF784E629CC953500AC8004 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF784E529CC953500AC8004 /* PlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		EF9AD65229CC103400FAE964 /* MediaCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCache.swift; sourceTree = "<group>"; };
 		EF9AD65529CC147B00FAE964 /* VideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoCollectionViewCell.swift; sourceTree = "<group>"; };
 		EFF784E329CC8F2000AC8004 /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
+		EFF784E529CC953500AC8004 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +214,7 @@
 				EF9AD62529CBD5EA00FAE964 /* BaseViewController.swift */,
 				EF9AD62729CBD69400FAE964 /* BaseView.swift */,
 				EF9AD65229CC103400FAE964 /* MediaCache.swift */,
+				EFF784E529CC953500AC8004 /* PlayerView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 				EF9AD62629CBD5EA00FAE964 /* BaseViewController.swift in Sources */,
 				EF9AD63B29CBE41D00FAE964 /* TopInfo.swift in Sources */,
 				EF9AD64929CBFDAD00FAE964 /* Service.swift in Sources */,
+				EFF784E629CC953500AC8004 /* PlayerView.swift in Sources */,
 				EF9AD64D29CC062700FAE964 /* Response.swift in Sources */,
 				EF9AD62D29CBD9CA00FAE964 /* UserDisplay.swift in Sources */,
 				EF9AD64B29CC00C000FAE964 /* LooksModel.swift in Sources */,

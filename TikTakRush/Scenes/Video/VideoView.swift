@@ -26,6 +26,7 @@ final class VideoView: BaseView {
         collection.showsVerticalScrollIndicator = false
         collection.showsHorizontalScrollIndicator = false
         collection.translatesAutoresizingMaskIntoConstraints = false
+        collection.alwaysBounceVertical = true
         return collection
     }()
     

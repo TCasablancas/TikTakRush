@@ -14,6 +14,7 @@ final class TopInfo: BaseView {
     private let mainStack = UIStackView(axis: .vertical, spacing: 10)
     
     var titleLabel = UILabel() {
+        $0.textColor = .white
         $0.font = UIFont.init(name: "Nunito-SemiBold", size: 20)
         $0.numberOfLines = 2
     }

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class VideoCollectionViewCell: UICollectionViewCell {
     
@@ -16,8 +17,7 @@ class VideoCollectionViewCell: UICollectionViewCell {
     
     //MARK: - UI
     
-    private let container = UIView() {
-        $0.backgroundColor = .lightGray
+    var playerView = PlayerView() {
         $0.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -25,13 +25,11 @@ class VideoCollectionViewCell: UICollectionViewCell {
         $0.setAutoresizingMaskIntoConstraintsForAllSubviews()
     }
     
-    let likeButton = CounterButton {
-        $0.setupButton(isLike: true)
-    }
+    private let likeButton = CounterButton(imageIcon: "heart-icon", isLike: true)
     
-    private let fireButton = CounterButton {
-        $0.setupButton(isLike: false)
-    }
+    private let fireButton = CounterButton(imageIcon: "fire-icon", isLike: false)
+    
+    var videoPlayer: AVPlayer? = nil
     
     //MARK: - Init
     
@@ -43,7 +41,12 @@ class VideoCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+
+//MARK: - Cell Configuration
+
+extension VideoCollectionViewCell {
     public func configureWith(with video: VideoModel) {
         self.video = video
         
@@ -54,29 +57,31 @@ class VideoCollectionViewCell: UICollectionViewCell {
     }
 }
 
+//MARK: - Setup View
+
 extension VideoCollectionViewCell {
     func setup() {
         addSubview(topInfoView)
         addSubview(likeButton)
         addSubview(fireButton)
-        addSubview(container)
-        sendSubviewToBack(container)
+        addSubview(playerView)
+        sendSubviewToBack(playerView)
         
         NSLayoutConstraint.activate([
-            container.widthAnchor.constraint(equalTo: widthAnchor),
-            container.heightAnchor.constraint(equalTo: heightAnchor),
+            playerView.widthAnchor.constraint(equalTo: widthAnchor),
+            playerView.heightAnchor.constraint(equalTo: heightAnchor),
             
             topInfoView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 60),
             topInfoView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             topInfoView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             
-            likeButton.widthAnchor.constraint(equalToConstant: 30),
-            likeButton.heightAnchor.constraint(equalToConstant: 30),
+            likeButton.widthAnchor.constraint(equalToConstant: 50),
+            likeButton.heightAnchor.constraint(equalToConstant: 40),
             likeButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20),
             likeButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             
-            fireButton.widthAnchor.constraint(equalToConstant: 30),
-            fireButton.heightAnchor.constraint(equalToConstant: 30),
+            fireButton.widthAnchor.constraint(equalToConstant: 50),
+            fireButton.heightAnchor.constraint(equalToConstant: 40),
             fireButton.centerYAnchor.constraint(equalTo: centerYAnchor, constant: 20),
             fireButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -40)
         ])

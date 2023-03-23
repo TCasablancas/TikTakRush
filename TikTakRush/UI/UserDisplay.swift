@@ -19,18 +19,20 @@ final class UserDisplay: BaseView {
     
     private let userPicView = UIImageView() {
         $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor.red.cgColor
+        $0.layer.borderColor = UIColor.white.cgColor
         $0.layer.cornerRadius = 8
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
     }
     
     private let userNameLabel = UILabel() {
+        $0.textColor = .white
         $0.font = UIFont.init(name: "Nunito-SemiBold", size: 13)
         $0.numberOfLines = .zero
     }
     
     private let followersLabel = UILabel() {
+        $0.textColor = .white
         $0.text = "128k"
         $0.font = UIFont.init(name: "Nunito-Light", size: 12)
         $0.numberOfLines = .zero

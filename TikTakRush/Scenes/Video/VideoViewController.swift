@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import AVFoundation
+import AVKit
 
 final class VideoViewController: BaseViewController<VideoView> {
     
@@ -16,6 +17,13 @@ final class VideoViewController: BaseViewController<VideoView> {
     private let reuseIdentifier = "collectionViewCell"
     private let viewModel: VideoViewModel
     private var videos: [VideoModel] = []
+    
+//    private var playerLooper: AVPlayerLooper!
+    private var queuePlayer: AVQueuePlayer!
+    
+    var videoPlayer: AVPlayer?
+    var videoPlayerLayer: AVPlayerLayer?
+    var playerLooper: NSObject?
     
     init(viewModel: VideoViewModel) {
         self.viewModel = viewModel
@@ -51,33 +59,23 @@ private extension VideoViewController {
         baseView.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-//    @objc
-//    func scrollToNextCell() {
-//        let height = self.view.frame.height
-//        let cellSize = CGSizeMake(self.view.frame.width, height)
-//        let contentOffset = baseView.collectionView.contentOffset
-//        UIView.animate(withDuration: 1.0,
-//                       delay: 0.2,
-//                       usingSpringWithDamping: 0.5,
-//                       initialSpringVelocity: 0,
-//                       options: .curveEaseInOut,
-//                       animations: {
-//            self.baseView.collectionView.scrollRectToVisible(CGRectMake(contentOffset.x,
-//                                                                   contentOffset.y + cellSize.height,
-//                                                                   cellSize.width,
-//                                                                   cellSize.height),
-//                                                        animated: true)
-//        })
-//
-//    }
-//
-//    func startTimer() {
-//        let timer = Timer.scheduledTimer(timeInterval: 1.0,
-//                                         target: self,
-//                                         selector: #selector(scrollToNextCell),
-//                                         userInfo: nil,
-//                                         repeats: true)
-//    }
+    func getBackgroundVideo(from item: VideoModel, _ cell: VideoCollectionViewCell) {
+        
+        guard let url = URL(string: item.footage) else {
+            return
+        }
+        
+        let asset = AVAsset(url: url)
+        let playerItem = AVPlayerItem(url: url)
+        videoPlayer = AVQueuePlayer(items: [playerItem])
+        playerLooper = AVPlayerLooper(player: videoPlayer! as! AVQueuePlayer,
+                                      templateItem: playerItem)
+        
+        let playerLayer = AVPlayerLayer(player: videoPlayer)
+        playerLayer.frame = UIScreen.main.bounds
+        cell.playerView.layer.addSublayer(playerLayer)
+        videoPlayer?.play()
+    }
 }
 
 extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -93,6 +91,7 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! VideoCollectionViewCell
         let item = videos[indexPath.row]
         
+        getBackgroundVideo(from: item, cell)
         cell.configureWith(with: item)
         cell.setAutoresizingMaskIntoConstraintsForAllSubviews()
         
@@ -103,47 +102,50 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         print("@! >>> Collection view at row \(collectionView.tag); selected index path \(indexPath)")
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        let pageFloat = (scrollView.contentOffset.y / scrollView.frame.size.height)
-        let pageInt = Int(round(pageFloat))
-
-        switch pageInt {
-        case 0:
-            baseView.collectionView.scrollToItem(at: [0, 3], at: .centeredVertically, animated: true)
-        case videos.count - 1:
-            baseView.collectionView.scrollToItem(at: [0, 1], at: .centeredVertically, animated: false)
-        default:
-            break
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let visibleCells = baseView.collectionView.indexPathsForVisibleItems.sorted { top, bottom -> Bool in
+            return top.section < bottom.section || top.row < bottom.row
+        }.compactMap { indexPath -> UICollectionViewCell? in
+            return baseView.collectionView.cellForItem(at: indexPath)
+        }
+        
+        let indexPaths = baseView.collectionView.indexPathsForVisibleItems.sorted()
+        let cellCount = visibleCells.count
+        
+        guard let firstCell = visibleCells.first as? VideoCollectionViewCell,
+              let firstIndex = indexPaths.first else {
+            return
+        }
+        
+        checkVisibilityOfCell(cell: firstCell, indexPath: firstIndex)
+        if cellCount == 1 {
+            return
+        }
+        
+        guard let lastCell = visibleCells.last as? VideoCollectionViewCell,
+              let lastIndex = indexPaths.last else {
+            return
+        }
+        
+        checkVisibilityOfCell(cell: lastCell, indexPath: lastIndex)
+    }
+    
+    func checkVisibilityOfCell(cell: VideoCollectionViewCell, indexPath: IndexPath) {
+        if let cellRect = (baseView.collectionView.layoutAttributesForItem(at: indexPath)?.frame) {
+            let completelyVisible = baseView.collectionView.bounds.contains(cellRect)
+            if completelyVisible {
+                
+            } else {
+                
+            }
         }
     }
 }
 
 extension VideoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-//        if let cellRect = (collectionView.layoutAttributesForItem(at: indexPath)?.frame) {
-//            let completelyVisible = collectionView.bounds.contains(cellRect)
-//            if completelyVisible {
-//                cell.playVideo()
-//                print("@! >>> Cell is visible!")
-//            }
-//        }
-        
         return CGSize(width: collectionView.bounds.width, height: UIScreen.main.bounds.height)
     }
 }
 
 
-
-//    func setupBackgroundVideo() {
-//        guard let path = Bundle.main.path(forResource: "compressed_for_ios_url", ofType: "mp4") else {
-//            return
-//        }
-//
-//        let player = AVPlayer(url: URL(fileURLWithPath: path))
-//        let playerLayer = AVPlayerLayer(player: player)
-//        playerLayer.frame = self.view.bounds
-//        playerLayer.videoGravity = .resizeAspectFill
-//
-//        player.play()
-//    }
