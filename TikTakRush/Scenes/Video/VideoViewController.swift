@@ -18,12 +18,10 @@ final class VideoViewController: BaseViewController<VideoView> {
     private let viewModel: VideoViewModel
     private var videos: [VideoModel] = []
     
-//    private var playerLooper: AVPlayerLooper!
-    private var queuePlayer: AVQueuePlayer!
-    
-    var videoPlayer: AVPlayer?
-    var videoPlayerLayer: AVPlayerLayer?
-    var playerLooper: NSObject?
+    private var audioPlayer: AVPlayer?
+    private var videoPlayer: AVPlayer?
+    private var videoPlayerLayer: AVPlayerLayer?
+    private var playerLooper: NSObject?
     
     init(viewModel: VideoViewModel) {
         self.viewModel = viewModel
@@ -65,16 +63,34 @@ private extension VideoViewController {
             return
         }
         
-        let asset = AVAsset(url: url)
         let playerItem = AVPlayerItem(url: url)
         videoPlayer = AVQueuePlayer(items: [playerItem])
         playerLooper = AVPlayerLooper(player: videoPlayer! as! AVQueuePlayer,
                                       templateItem: playerItem)
         
         let playerLayer = AVPlayerLayer(player: videoPlayer)
-        playerLayer.frame = UIScreen.main.bounds
+        playerLayer.frame = CGRect (x:0,
+                                    y:-80,
+                                    width: UIScreen.main.bounds.width + 120,
+                                    height: UIScreen.main.bounds.height + 120)
         cell.playerView.layer.addSublayer(playerLayer)
         videoPlayer?.play()
+    }
+    
+    private func setupAudioContent(from item: VideoModel, _ cell: VideoCollectionViewCell) {
+
+        guard let url = URL(string: item.song) else {
+            return
+        }
+        
+        audioPlayer = AVPlayer(url: url)
+
+        let playerLayer = AVPlayerLayer(player: audioPlayer)
+        cell.playerView.layer.addSublayer(playerLayer)
+//            playerLayer.frame = self.frame
+
+        audioPlayer?.play()
+        audioPlayer?.volume = 1.0
     }
 }
 
@@ -92,6 +108,7 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let item = videos[indexPath.row]
         
         getBackgroundVideo(from: item, cell)
+        setupAudioContent(from: item, cell)
         cell.configureWith(with: item)
         cell.setAutoresizingMaskIntoConstraintsForAllSubviews()
         
@@ -134,9 +151,9 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         if let cellRect = (baseView.collectionView.layoutAttributesForItem(at: indexPath)?.frame) {
             let completelyVisible = baseView.collectionView.bounds.contains(cellRect)
             if completelyVisible {
-                
+                //TODO
             } else {
-                
+                //TODO
             }
         }
     }
