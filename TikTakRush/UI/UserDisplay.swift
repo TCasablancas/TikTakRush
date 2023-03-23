@@ -21,6 +21,8 @@ final class UserDisplay: BaseView {
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.red.cgColor
         $0.layer.cornerRadius = 8
+        $0.contentMode = .scaleAspectFill
+        $0.clipsToBounds = true
     }
     
     private let userNameLabel = UILabel() {
@@ -66,8 +68,8 @@ final class UserDisplay: BaseView {
     func setupUserView(userImage: String, username: String) {
         guard let url = URL(string: userImage) else { return }
         
-        UIImage.loadFrom(url: url) { image in
-            self.userPicView.image = image
+        UIImage.loadFrom(url: url) { [weak self] (image) in
+            self?.userPicView.image = image
         }
         
         userNameLabel.text = username
