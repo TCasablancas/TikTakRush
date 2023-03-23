@@ -28,6 +28,10 @@
 		EF9AD63829CBE29100FAE964 /* Nunito-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EF9AD63529CBE29100FAE964 /* Nunito-Black.ttf */; };
 		EF9AD63B29CBE41D00FAE964 /* TopInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD63A29CBE41D00FAE964 /* TopInfo.swift */; };
 		EF9AD63F29CBF23C00FAE964 /* CounterButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD63E29CBF23C00FAE964 /* CounterButton.swift */; };
+		EF9AD64329CBFC6D00FAE964 /* MockData.json in Resources */ = {isa = PBXBuildFile; fileRef = EF9AD64229CBFC6D00FAE964 /* MockData.json */; };
+		EF9AD64529CBFD1600FAE964 /* VideoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64429CBFD1600FAE964 /* VideoViewModel.swift */; };
+		EF9AD64729CBFD3200FAE964 /* VideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64629CBFD3200FAE964 /* VideoModel.swift */; };
+		EF9AD64929CBFDAD00FAE964 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF9AD64829CBFDAD00FAE964 /* Service.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +77,10 @@
 		EF9AD63529CBE29100FAE964 /* Nunito-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nunito-Black.ttf"; sourceTree = "<group>"; };
 		EF9AD63A29CBE41D00FAE964 /* TopInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopInfo.swift; sourceTree = "<group>"; };
 		EF9AD63E29CBF23C00FAE964 /* CounterButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CounterButton.swift; sourceTree = "<group>"; };
+		EF9AD64229CBFC6D00FAE964 /* MockData.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MockData.json; sourceTree = "<group>"; };
+		EF9AD64429CBFD1600FAE964 /* VideoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoViewModel.swift; sourceTree = "<group>"; };
+		EF9AD64629CBFD3200FAE964 /* VideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoModel.swift; sourceTree = "<group>"; };
+		EF9AD64829CBFDAD00FAE964 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +134,7 @@
 				EF9AD61F29CBD4EA00FAE964 /* Common */,
 				EF9AD62029CBD50F00FAE964 /* Assets */,
 				EF9AD62129CBD52E00FAE964 /* Video */,
+				EF9AD64229CBFC6D00FAE964 /* MockData.json */,
 				EF9AD5FD29CBD26B00FAE964 /* Info.plist */,
 			);
 			path = TikTakRush;
@@ -159,6 +168,7 @@
 				EF9AD5F329CBD26900FAE964 /* ViewController.swift */,
 				EF9AD5F529CBD26900FAE964 /* Main.storyboard */,
 				EF9AD5FA29CBD26B00FAE964 /* LaunchScreen.storyboard */,
+				EF9AD64829CBFDAD00FAE964 /* Service.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -177,6 +187,8 @@
 			children = (
 				EF9AD62929CBD79700FAE964 /* VideoView.swift */,
 				EF9AD62229CBD55900FAE964 /* VideoViewController.swift */,
+				EF9AD64429CBFD1600FAE964 /* VideoViewModel.swift */,
+				EF9AD64629CBFD3200FAE964 /* VideoModel.swift */,
 			);
 			path = Video;
 			sourceTree = "<group>";
@@ -327,6 +339,7 @@
 				EF9AD5F929CBD26B00FAE964 /* Assets.xcassets in Resources */,
 				EF9AD63629CBE29100FAE964 /* Nunito-Light.ttf in Resources */,
 				EF9AD5F729CBD26900FAE964 /* Main.storyboard in Resources */,
+				EF9AD64329CBFC6D00FAE964 /* MockData.json in Resources */,
 				EF9AD63729CBE29100FAE964 /* Nunito-SemiBold.ttf in Resources */,
 				EF9AD63829CBE29100FAE964 /* Nunito-Black.ttf in Resources */,
 			);
@@ -355,11 +368,14 @@
 			files = (
 				EF9AD62629CBD5EA00FAE964 /* BaseViewController.swift in Sources */,
 				EF9AD63B29CBE41D00FAE964 /* TopInfo.swift in Sources */,
+				EF9AD64929CBFDAD00FAE964 /* Service.swift in Sources */,
 				EF9AD62D29CBD9CA00FAE964 /* UserDisplay.swift in Sources */,
+				EF9AD64729CBFD3200FAE964 /* VideoModel.swift in Sources */,
 				EF9AD62A29CBD79800FAE964 /* VideoView.swift in Sources */,
 				EF9AD63229CBDDD300FAE964 /* UIStackView+Extension.swift in Sources */,
 				EF9AD63029CBDBB300FAE964 /* UIView+Extension.swift in Sources */,
 				EF9AD5F429CBD26900FAE964 /* ViewController.swift in Sources */,
+				EF9AD64529CBFD1600FAE964 /* VideoViewModel.swift in Sources */,
 				EF9AD5F029CBD26900FAE964 /* AppDelegate.swift in Sources */,
 				EF9AD62829CBD69400FAE964 /* BaseView.swift in Sources */,
 				EF9AD5F229CBD26900FAE964 /* SceneDelegate.swift in Sources */,

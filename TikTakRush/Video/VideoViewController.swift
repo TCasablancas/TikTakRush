@@ -11,19 +11,30 @@ import UIKit
 final class VideoViewController: BaseViewController<VideoView> {
     
     //MARK: - Properties
+
+    private let viewModel: VideoViewModel
     
-    var counter: Int = 0
+    init(viewModel: VideoViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
     
     //MARK: - View Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupBaseView()
+        
+        viewModel.fetchDataFromJSON()
+    }
+}
+
+private extension VideoViewController {
+    func setupBaseView() {
         baseView.setAutoresizingMaskIntoConstraintsForAllSubviews()
         
-        baseView.likeButton.counter = counter
-        
         baseView.likeButton.increaseDidTap = {
-            print(self.counter += 1)
+            print()
         }
     }
 }
