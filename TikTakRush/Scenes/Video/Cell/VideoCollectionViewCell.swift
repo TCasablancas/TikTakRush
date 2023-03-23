@@ -9,13 +9,18 @@ import Foundation
 import UIKit
 import AVFoundation
 
-class VideoCollectionViewCell: UICollectionViewCell {
+class VideoCollectionViewCell: UICollectionViewCell, UIGestureRecognizerDelegate {
     
     //MARK: - Properties
     
     private var video: VideoModel?
+    private var panGesture: UIPanGestureRecognizer!
     
     //MARK: - UI
+    
+    private let mainContainer = UIView() {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
     
     var playerView = PlayerView() {
         $0.translatesAutoresizingMaskIntoConstraints = false
@@ -25,11 +30,14 @@ class VideoCollectionViewCell: UICollectionViewCell {
         $0.setAutoresizingMaskIntoConstraintsForAllSubviews()
     }
     
+    private let likeSwipe = UIView()
+    private let fireSwipe = UIView() {
+        $0.backgroundColor = .red
+        $0.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     private let likeButton = CounterButton(imageIcon: "heart-icon", isLike: true)
-    
     private let fireButton = CounterButton(imageIcon: "fire-icon", isLike: false)
-    
-    var videoPlayer: AVPlayer? = nil
     
     //MARK: - Init
     
@@ -61,6 +69,8 @@ extension VideoCollectionViewCell {
 
 extension VideoCollectionViewCell {
     func setup() {
+        clipsToBounds = false
+        
         addSubview(topInfoView)
         addSubview(likeButton)
         addSubview(fireButton)

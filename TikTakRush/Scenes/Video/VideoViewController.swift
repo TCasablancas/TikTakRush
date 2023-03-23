@@ -14,11 +14,15 @@ final class VideoViewController: BaseViewController<VideoView> {
     
     //MARK: - Properties
     
+    let stackLayout = SnappingFlowLayout()
+    
     private let reuseIdentifier = "collectionViewCell"
     private let viewModel: VideoViewModel
     private var videos: [VideoModel] = []
     
     private var audioPlayer: AVPlayer?
+    private var audioPlayerLayer: AVPlayerLayer?
+    private var audioLooper: NSObject?
     private var videoPlayer: AVPlayer?
     private var videoPlayerLayer: AVPlayerLayer?
     private var playerLooper: NSObject?
@@ -39,6 +43,7 @@ final class VideoViewController: BaseViewController<VideoView> {
         setupCollectioView()
         viewModel.delegate = self
         viewModel.fetchDataFromJSON()
+        setuSwipeFire()
     }
 }
 
@@ -55,6 +60,7 @@ private extension VideoViewController {
         baseView.collectionView.dataSource = self
         baseView.collectionView.register(VideoCollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         baseView.collectionView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        baseView.collectionView.collectionViewLayout = stackLayout
     }
     
     func getBackgroundVideo(from item: VideoModel, _ cell: VideoCollectionViewCell) {
@@ -69,15 +75,15 @@ private extension VideoViewController {
                                       templateItem: playerItem)
         
         let playerLayer = AVPlayerLayer(player: videoPlayer)
-        playerLayer.frame = CGRect (x:0,
-                                    y:-80,
-                                    width: UIScreen.main.bounds.width + 120,
-                                    height: UIScreen.main.bounds.height + 120)
+        playerLayer.frame = CGRect (x:-50,
+                                    y:-90,
+                                    width: UIScreen.main.bounds.width + 160,
+                                    height: UIScreen.main.bounds.height + 160)
         cell.playerView.layer.addSublayer(playerLayer)
         videoPlayer?.play()
     }
     
-    func setupAudioPlayer(from item: VideoModel) {
+    func getAudioPlayer(from item: VideoModel) {
         
         guard let url = URL(string: item.song) else {
             return
@@ -85,11 +91,31 @@ private extension VideoViewController {
         
         do {
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
-            videoPlayer = AVPlayer(url: url)
-            videoPlayer?.play()
+            let playerItem = AVPlayerItem(url: url)
+            audioPlayer = AVQueuePlayer(items: [playerItem])
+            audioLooper = AVPlayerLooper(player: audioPlayer! as! AVQueuePlayer,
+                                         templateItem: playerItem)
+            audioPlayer?.play()
         } catch {
             debugPrint("an error was encoutered while trying to pick up song: \(error)")
         }
+    }
+    
+    func setuSwipeFire() {
+        var config = UICollectionLayoutListConfiguration(appearance: .plain)
+        
+        config.trailingSwipeActionsConfigurationProvider = { indexPath in
+            let fire = UIContextualAction(style: .destructive, title: "Fire") { [weak self] action, view, completion in
+                print("@! >>> Mais 1 fire")
+                completion(true)
+            }
+            
+            return UISwipeActionsConfiguration(actions: [fire])
+        }
+    }
+    
+    func delete(at: IndexPath) {
+        
     }
 }
 
@@ -107,54 +133,19 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         let item = videos[indexPath.row]
         
         getBackgroundVideo(from: item, cell)
-        setupAudioPlayer(from: item)
+        getAudioPlayer(from: item)
         cell.configureWith(with: item)
         cell.setAutoresizingMaskIntoConstraintsForAllSubviews()
         
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
+        print("@! >>> Adicionado 1 like")
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("@! >>> Collection view at row \(collectionView.tag); selected index path \(indexPath)")
-    }
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let visibleCells = baseView.collectionView.indexPathsForVisibleItems.sorted { top, bottom -> Bool in
-            return top.section < bottom.section || top.row < bottom.row
-        }.compactMap { indexPath -> UICollectionViewCell? in
-            return baseView.collectionView.cellForItem(at: indexPath)
-        }
-        
-        let indexPaths = baseView.collectionView.indexPathsForVisibleItems.sorted()
-        let cellCount = visibleCells.count
-        
-        guard let firstCell = visibleCells.first as? VideoCollectionViewCell,
-              let firstIndex = indexPaths.first else {
-            return
-        }
-        
-        checkVisibilityOfCell(cell: firstCell, indexPath: firstIndex)
-        if cellCount == 1 {
-            return
-        }
-        
-        guard let lastCell = visibleCells.last as? VideoCollectionViewCell,
-              let lastIndex = indexPaths.last else {
-            return
-        }
-        
-        checkVisibilityOfCell(cell: lastCell, indexPath: lastIndex)
-    }
-    
-    func checkVisibilityOfCell(cell: VideoCollectionViewCell, indexPath: IndexPath) {
-        if let cellRect = (baseView.collectionView.layoutAttributesForItem(at: indexPath)?.frame) {
-            let completelyVisible = baseView.collectionView.bounds.contains(cellRect)
-            if completelyVisible {
-                //TODO
-            } else {
-                //TODO
-            }
-        }
     }
 }
 
@@ -163,5 +154,3 @@ extension VideoViewController: UICollectionViewDelegateFlowLayout {
         return CGSize(width: collectionView.bounds.width, height: UIScreen.main.bounds.height)
     }
 }
-
-
